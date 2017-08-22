@@ -1,13 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
-import Header from '../components/header'
-import Progress from '../components/progress'
+import Root from './Root'
 
 ReactDOM.render(
-    <div>
-        <Header />
-        <Progress progress="2"></Progress>
-    </div>
-    ,
+    <Root />,
     document.getElementById('root')
 )
