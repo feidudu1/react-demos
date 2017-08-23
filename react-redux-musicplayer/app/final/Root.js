@@ -1,15 +1,8 @@
 import React, {Component} from 'react'
 import Header from '../components/header'
-import Progress from '../components/progress'
+import Player from '../page/Player'
 
-let duration;
 export default class Root extends Component {
-    constructor() {
-        super();
-        this.state = {
-            progress: '-'
-        }
-    };
     componentDidMount(){
         $('#player').jPlayer({
             ready: function () {
@@ -20,28 +13,14 @@ export default class Root extends Component {
             supplied: 'mp3',
             wmode: 'window'
         });
-        $('#player').bind($.jPlayer.event.timeupdate, (e) => {
-            duration = e.jPlayer.status.duration;
-            this.setState({
-                progress: e.jPlayer.status.currentPercentAbsolute
-            })
-        })
     };
     componentWillUnMount(){
-        $('#jPlayer').unbind($.jPlayer.event.timeupdate);  // 解除绑定，否则重新进入又会绑定一次
-    };
-    progressChangeHandler(progress){
-           $('#player').jPlayer('play', duration * progress);
     };
     render(){
         return (
             <div>
                 <Header />
-                <Progress
-                    progress={this.state.progress} onProgressChange={this.progressChangeHandler}
-                    barColor="#ff0000"
-                >
-                </Progress>
+                <Player />
             </div>
         )
     };
