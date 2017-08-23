@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Header from '../components/header'
 import Progress from '../components/progress'
 
+let duration;
 export default class Root extends Component {
     constructor() {
         super();
@@ -20,19 +21,27 @@ export default class Root extends Component {
             wmode: 'window'
         });
         $('#player').bind($.jPlayer.event.timeupdate, (e) => {
+            duration = e.jPlayer.status.duration;
             this.setState({
-                progress: Math.round(e.jPlayer.status.currentTime)
+                progress: e.jPlayer.status.currentPercentAbsolute
             })
         })
     };
     componentWillUnMount(){
-        $('#jPlayer').unbind($.jPlayer.event.timeupdate);  // 解除绑定，否则重新进入又会绑定一次    
+        $('#jPlayer').unbind($.jPlayer.event.timeupdate);  // 解除绑定，否则重新进入又会绑定一次
+    };
+    progressChangeHandler(progress){
+           $('#player').jPlayer('play', duration * progress);
     };
     render(){
         return (
             <div>
                 <Header />
-                <Progress progress={this.state.progress}></Progress>
+                <Progress
+                    progress={this.state.progress} onProgressChange={this.progressChangeHandler}
+                    barColor="#ff0000"
+                >
+                </Progress>
             </div>
         )
     };
