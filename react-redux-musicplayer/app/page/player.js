@@ -21,7 +21,7 @@ export default class Player extends Component {
     componentWillUnMount(){
         $("#player").unbind($.jPlayer.event.timeupdate);
     };
-    progressChangeHandler(progress){
+    changeProgressHandler(progress){
            $('#player').jPlayer('play', duration * progress);
     };
     render(){
@@ -30,8 +30,8 @@ export default class Player extends Component {
                 <h1 className="caption">我的私人音乐坊 &gt;</h1>
                 <div className="mt20 row">
                 	<div className="controll-wrapper">
-                		<h2 className="music-title"></h2>
-                		<h3 className="music-artist mt10"></h3>
+                		<h2 className="music-title">{this.props.currentMusicItem.title}</h2>
+                		<h3 className="music-artist mt10">{this.props.currentMusicItem.artist}</h3>
                 		<div className="row mt20">
                 			<div className="left-time -col-auto">-</div>
                 			<div className="volume-container">
@@ -53,7 +53,7 @@ export default class Player extends Component {
                 		<div className="mt35 row">
                 			<div>
 	                			<i className="icon prev"></i>
-	                			<i ></i>
+	                			<i className="icon ml20 play"></i>
 	                			<i className="icon next ml20"></i>
                 			</div>
                 			<div className="-col-auto">
@@ -62,7 +62,7 @@ export default class Player extends Component {
                 		</div>
                 	</div>
                 	<div className="-col-auto cover">
-                		<img />
+                		<img src={this.props.currentMusicItem.cover} alt={this.props.currentMusicItem.title}/>
                 	</div>
                 </div>
             </div>
