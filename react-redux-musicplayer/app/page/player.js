@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import Header from '../components/header'
 import Progress from '../components/progress'
+import './player.less'
 
 let duration = null;
 export default class Player extends Component {
@@ -26,12 +26,45 @@ export default class Player extends Component {
     };
     render(){
         return (
-            <div>
-                <Progress
-                    progress={this.state.progress} onProgressChange={this.progressChangeHandler}
-                    barColor="#ff0000"
-                >
-                </Progress>
+            <div className="player-page">
+                <h1 className="caption">我的私人音乐坊 &gt;</h1>
+                <div className="mt20 row">
+                	<div className="controll-wrapper">
+                		<h2 className="music-title"></h2>
+                		<h3 className="music-artist mt10"></h3>
+                		<div className="row mt20">
+                			<div className="left-time -col-auto">-</div>
+                			<div className="volume-container">
+                				<i className="icon-volume rt" style={{top: 5, left: -5}}></i>
+                				<div className="volume-wrapper">
+					                <Progress
+					                >
+					                </Progress>
+                				</div>
+                			</div>
+                		</div>
+                		<div style={{height: 10, lineHeight: '10px'}}>
+			                <Progress
+								progress={this.state.progress}
+								onProgressChange={this.changeProgressHandler}
+			                >
+			                </Progress>
+                		</div>
+                		<div className="mt35 row">
+                			<div>
+	                			<i className="icon prev"></i>
+	                			<i ></i>
+	                			<i className="icon next ml20"></i>
+                			</div>
+                			<div className="-col-auto">
+                				<i ></i>
+                			</div>
+                		</div>
+                	</div>
+                	<div className="-col-auto cover">
+                		<img />
+                	</div>
+                </div>
             </div>
         )
     };
