@@ -8,7 +8,8 @@ export default class Player extends Component {
         super();
         this.state = {
             progress: 0,
-            volume: 0
+            volume: 0,
+            isPlay: true
         }
     };
     componentDidMount(){
@@ -30,6 +31,16 @@ export default class Player extends Component {
     };
     changeVolumeHandler(progress) {
         $('#player').jPlayer('volume', progress)
+    }
+    play(){
+        if (this.state.isPlay) {
+            $('#player').jPlayer('pause');
+        }else{
+            $('#player').jPlayer('play');
+        }
+        this.setState({
+            isPlay: !this.state.isPlay
+        })
     }
     render(){
         return (
@@ -63,7 +74,7 @@ export default class Player extends Component {
                 		<div className="mt35 row">
                 			<div>
 	                			<i className="icon prev"></i>
-	                			<i className="icon ml20 play"></i>
+	                			<i className={`icon ml20 ${this.state.isPlay ? 'pause' : 'play'}`} onClick={this.play.bind(this)}></i>
 	                			<i className="icon next ml20"></i>
                 			</div>
                 			<div className="-col-auto">
