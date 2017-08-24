@@ -7,14 +7,18 @@ export default class Player extends Component {
     constructor() {
         super();
         this.state = {
-            progress: '-'
+            progress: 0,
+            volume: 0
         }
     };
     componentDidMount(){
         $('#player').bind($.jPlayer.event.timeupdate, (e) => {
             duration = e.jPlayer.status.duration;
+            console.log(e.jPlayer.options.volume * 100, 'volume');
+
             this.setState({
-                progress: e.jPlayer.status.currentPercentAbsolute
+                volume: e.jPlayer.options.volume * 100,
+                progress: e.jPlayer.status.currentPercentAbsolute,
             })
         })
     };
@@ -24,6 +28,9 @@ export default class Player extends Component {
     changeProgressHandler(progress){
            $('#player').jPlayer('play', duration * progress);
     };
+    changeVolumeHandler(progress) {
+        $('#player').jPlayer('volume', progress)
+    }
     render(){
         return (
             <div className="player-page">
@@ -38,6 +45,9 @@ export default class Player extends Component {
                 				<i className="icon-volume rt" style={{top: 5, left: -5}}></i>
                 				<div className="volume-wrapper">
 					                <Progress
+                                        progress={this.state.volume}
+                                        onProgressChange={this.changeVolumeHandler}
+                                        barColor="#aaa"
 					                >
 					                </Progress>
                 				</div>
