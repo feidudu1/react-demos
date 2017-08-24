@@ -1,13 +1,15 @@
 import React, {Component} from 'react'
 import Header from '../components/header'
 import Player from '../page/Player'
+import MusicList from '../page/musiclist'
 import { MUSIC_LIST } from '../config/musiclist'  // 没有default时，要用大括号扩起来
 
 export default class Root extends Component {
     constructor(){
         super();
         this.state = {
-            currentMusicItem: MUSIC_LIST[0]
+            currentMusicItem: MUSIC_LIST[0],
+            musicList: MUSIC_LIST
         }
     };
     componentDidMount(){
@@ -27,9 +29,11 @@ export default class Root extends Component {
         return (
             <div>
                 <Header />
-                <Player
+                <MusicList
                     currentMusicItem={this.state.currentMusicItem}
-                />
+                    musicList={this.state.musicList}
+                >
+                </MusicList>
             </div>
         )
     };
