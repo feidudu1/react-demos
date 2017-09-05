@@ -14,6 +14,7 @@ var getHtmlWebpackPlugins = (function () {
         return new HtmlWebpackPlugin({
             title: page.title,
             filename: page.name + '.html',
+            template: './html/template/'+ (page.template || 'common.ejs')
         })
     })
 })();

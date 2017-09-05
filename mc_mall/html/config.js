@@ -8,7 +8,8 @@ module.exports = {
         // 走默认模板
         {
             name: 'list',
-            title: '列表'
+            title: '列表',
+            template: 'list.ejs'
         },
     ]
 };
