@@ -3,8 +3,11 @@ import Header from '../components/header'
 import Player from '../page/Player'
 import MusicList from '../page/musiclist'
 import { MUSIC_LIST } from '../config/musiclist'  // 没有default时，要用大括号扩起来
+import { Router, IndexRoute, Link, Route, hashHistory } from 'react-router'
+import Pubsub from 'pubsub-js'
 
-export default class Root extends Component {
+
+class App extends Component {
     constructor(){
         super();
         this.state = {
@@ -22,19 +25,40 @@ export default class Root extends Component {
             supplied: 'mp3',
             wmode: 'window'
         });
+        Pubsub.subscribe('DELETE_MUSIC',(msg, musicItem) => {
+            this.setState({
+                musicList: this.state.musicList.filter(item => {
+                    return item !== musicItem;
+                })
+            })
+        });
+        Pubsub.subscribe('PLAY_MUSIC',(msg, musicItem) => {
+
+        });
     };
     componentWillUnMount(){
+        Pubsub.unsubscribe('DELETE_MUSIC');
+        Pubsub.unsubscribe('PLAY_MUSIC');
     };
     render(){
         return (
-            <div>
+            <div className="container">
                 <Header />
-                <MusicList
-                    currentMusicItem={this.state.currentMusicItem}
-                    musicList={this.state.musicList}
-                >
-                </MusicList>
+                { React.cloneElement(this.props.children, this.state) }
             </div>
         )
     };
+}
+
+export default class Root extends Component {
+    render(){
+        return (
+            <Router history={hashHistory}>
+                <Route path="/" component={App}>
+                    <IndexRoute component={Player}></IndexRoute>
+                    <Route path="/list" component={MusicList}></Route>
+                </Route>
+            </Router>
+        )
+    }
 }
