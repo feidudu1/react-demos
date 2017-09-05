@@ -1,1 +1,3 @@
-console.log('hell');
+const b = function () {
+    console.log('hi');
+}

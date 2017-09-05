@@ -1,6 +1,7 @@
+// import path from 'path';
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 var webpack = require('webpack');
 
 var PageConfig = require('./html/config.js');
@@ -11,7 +12,7 @@ var ROOT_PATH = path.resolve(__dirname);
 var SRC_PATH = path.resolve(ROOT_PATH, 'src');
 var BUILD_PATH = path.resolve(ROOT_PATH, 'build');
 
-var getEntries = function () {
+var getEntries = () => {
     var entries = {vendor: ['./src/common.js','./src/sub.js']};
     pageInfo.forEach(function (page) {
         entries[page.name] = './src/' + page.name + '.js';
@@ -31,7 +32,6 @@ var getHtmlWebpackPlugins = function () {
 };
 
 var pluginsObj = getHtmlWebpackPlugins();
-console.log(typeof pluginsObj,'hi');
 pluginsObj.CommonsChunkPlugin =
     new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor'
@@ -46,5 +46,16 @@ module.exports = {
         filename: '[name].js',
         chunkFilename: '[name].chunk.js', // optional default：[id].[name]
     },
-    plugins: pluginsObj
+    plugins: pluginsObj,
+    module: {
+        rules: [
+            {
+                test: /\.(js)$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                    loader: 'babel-loader'
+                }
+            }
+        ]
+    },
 }
