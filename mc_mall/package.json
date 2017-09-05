@@ -17,9 +17,8 @@
   },
   "homepage": "https://github.com/feidudu1/react-demos#readme",
   "devDependencies": {
+    "html-webpack-plugin": "^2.30.1",
     "webpack": "^3.5.5"
   },
-  "dependencies": {
-    "html-webpack-plugin": "^2.30.1"
-  }
+  "dependencies": {}
 }
