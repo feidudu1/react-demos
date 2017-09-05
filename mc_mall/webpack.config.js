@@ -1,5 +1,6 @@
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 var webpack = require('webpack');
 
 var PageConfig = require('./html/config.js');
@@ -28,12 +29,15 @@ var getHtmlWebpackPlugins = function () {
         })
     })
 };
-var getCommonsChunkPlugins =
+
+var pluginsObj = getHtmlWebpackPlugins();
+console.log(typeof pluginsObj,'hi');
+pluginsObj.CommonsChunkPlugin =
     new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor'
     });
-var pluginsObj = getHtmlWebpackPlugins();
-pluginsObj.CommonsChunkPlugin = getCommonsChunkPlugins;
+pluginsObj[pluginsObj.length] =
+    new CleanWebpackPlugin(['build']);
 
 module.exports = {
     entry: getEntries(),
