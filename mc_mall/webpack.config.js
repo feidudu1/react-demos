@@ -12,9 +12,11 @@ const SRC_PATH = path.resolve(ROOT_PATH, 'src');
 const BUILD_PATH = path.resolve(ROOT_PATH, 'build');
 
 const getEntries = () => {
-    const entries = {vendor: ['./src/common.js','./src/sub.js']};
+    const entries = {vendor: ['./src/vendors/common.js','./src/vendors/sub.js']};
     pageInfo.forEach((page) => {
-        entries[page.name] = `./src/${page.name}.js`;
+        if (!page.nojsx) {
+            entries[page.name] = `./src/jsx/${page.name}.jsx`;
+        }
     });
     return entries;
 };
@@ -43,17 +45,19 @@ module.exports = {
             name: 'vendor'
         }),
         new CleanWebpackPlugin(['build']),
+        new webpack.HotModuleReplacementPlugin()  // 加上后不报[HMR] Hot Module Replacement is disabled
     ],
     devServer: {
         historyApiFallback: true,//不跳转
         inline: true,//实时刷新
         port: 3030,
-        open: true  // 控制要不要自动打开浏览器
+        open: true,  // 控制要不要自动打开浏览器
+        hot: true   // 修改之后不会重启一个浏览器tab
     },
     module: {
         rules: [
             {
-                test: /\.(js)$/,
+                test: /\.(js|jsx)$/,
                 exclude: /(node_modules|bower_components)/,
                 loaders: ['babel-loader']
             },

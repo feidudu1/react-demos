@@ -4,12 +4,14 @@ module.exports = {
         {
             name: 'index',
             title: '首页',
+            template: 'index.ejs',
         },
         // 走默认模板
         {
             name: 'list',
             title: '列表',
-            template: 'list.ejs'
+            template: 'list.ejs',
+            nojsx: true
         },
     ]
 };
