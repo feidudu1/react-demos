@@ -12,7 +12,7 @@ const SRC_PATH = path.resolve(ROOT_PATH, 'src');
 const BUILD_PATH = path.resolve(ROOT_PATH, 'build');
 
 const getEntries = () => {
-    const entries = {vendor: ['./src/vendors/common.js','./src/vendors/sub.js']};
+    const entries = {vendor: ['./src/vendors/style.js','./src/vendors/sub.js']};
     pageInfo.forEach((page) => {
         if (!page.nojsx) {
             entries[page.name] = `./src/jsx/${page.name}.jsx`;

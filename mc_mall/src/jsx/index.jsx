@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import IndexContainer from '../containers/IndexContainer'
+
 import '../assets/main.less';
 
 ReactDOM.render(
-    <div>hi</div>,
+    <IndexContainer />,
     document.getElementById('root')
 )
