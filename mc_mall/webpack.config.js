@@ -44,6 +44,12 @@ module.exports = {
         }),
         new CleanWebpackPlugin(['build']),
     ],
+    devServer: {
+        historyApiFallback: true,//不跳转
+        inline: true,//实时刷新
+        port: 3030,
+        open: true  // 控制要不要自动打开浏览器
+    },
     module: {
         rules: [
             {

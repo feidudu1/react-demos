@@ -1,3 +1,6 @@
+import './assets/main.less'
+
 const b = function () {
-    console.log('hi');
+    console.log('io');
 }
+b();
