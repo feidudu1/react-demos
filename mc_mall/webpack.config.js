@@ -51,7 +51,7 @@ module.exports = {
         historyApiFallback: true,//不跳转
         inline: true,//实时刷新
         port: 3030,
-        open: true,  // 控制要不要自动打开浏览器
+        // open: true,  // 控制要不要自动打开浏览器
         hot: true   // 修改之后不会重启一个浏览器tab
     },
     module: {

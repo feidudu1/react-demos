@@ -4,7 +4,6 @@ module.exports = {
         {
             name: 'index',
             title: '首页',
-            template: 'index.ejs',
         },
         // 走默认模板
         {
