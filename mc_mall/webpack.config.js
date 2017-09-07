@@ -47,10 +47,11 @@ module.exports = {
         new CleanWebpackPlugin(['build']),
         new webpack.HotModuleReplacementPlugin()  // 加上后不报[HMR] Hot Module Replacement is disabled
     ],
+    devtool: 'inline-source-map',
     devServer: {
-        historyApiFallback: true,//不跳转
+        historyApiFallback: false,//不跳转
         inline: true,//实时刷新
-        port: 3030,
+        port: 8090,
         // open: true,  // 控制要不要自动打开浏览器
         hot: true   // 修改之后不会重启一个浏览器tab
     },
