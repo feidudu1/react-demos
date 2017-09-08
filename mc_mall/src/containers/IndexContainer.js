@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import SearchBar from '../presentation/SearchBar'
-import DbItemList from '../presentation/DbItemList'
+import DbItem from '../presentation/DbItem'
 import axios from 'axios'
 import fetchJsonp from 'fetch-jsonp'
 
@@ -34,23 +34,28 @@ export default class IndexContainer extends Component {
         var dbItemList = null;
         if (this.state.tms != '{}') {
             var tmsData = JSON.parse(this.state.tms).data.component;
-            dbItemList = tmsData.map((item,index) => {
-                if (item.valueType == 'product') {
-                    return (
-                        <DbItemList
-                            productListData={item.value.productList}
-                            key={index}
-                        />
+            dbItemList = tmsData.map((itemlist,index) => {
+                if (itemlist.valueType == 'product') {
+                    var items = itemlist.value.productList;
+                    return items.map((item,index) => {
+                        return (
+                            <DbItem
+                                productListData={item}
+                                key={index}
+                            />
 
-                    )
+                        )
+                    })
+
                 }
             })
+            console.log(dbItemList);
         }
 
         return (
             <div>
                 <SearchBar />
-                {dbItemList}
+                <ul> {dbItemList} </ul>
             </div>
         )
     }
